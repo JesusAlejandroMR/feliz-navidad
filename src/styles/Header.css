@@ -1,0 +1,14 @@
+.Principal-div{
+    background-color: aliceblue;    
+    border-radius: 8px;
+    display: flex;        
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0%;
+}
+
+.App-logo{
+    width: 75px;
+    margin-right: 10px;
+}
