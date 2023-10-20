@@ -6,7 +6,7 @@ function Header(props) {
   const datosUsuario = props.usuario;
   let mensaje = '';  
   if(datosUsuario.length > 0){
-    mensaje =`Bienvenido ${datosUsuario[0].NOMBRES}`;
+    mensaje =`Bienvenid@ ${datosUsuario[0].NOMBRES}`;
     {/*mensaje =`Bienvenido ${datosUsuario[0].NOMBRES}`;*/}
   }else{
     mensaje = 'Portal de votaciones navideñas';

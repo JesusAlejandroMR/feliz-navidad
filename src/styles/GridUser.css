@@ -31,3 +31,9 @@
     width: 100%;
     height: auto;
   }
+  .lblLinea{
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(59, 59, 168, 0.829);
+  }
