@@ -1,10 +1,12 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import GridUser from './GridUser'; // Ajusté la ruta al archivo GridUser
 import '../styles/ListUser.css';
 
 function ListUser(props) {
   const datosUsuario = props.usuario;
+  const [content, setContent] = useState(null);
 
   // Equivalente a onLoad
   useEffect(() => {
@@ -32,7 +34,7 @@ function ListUser(props) {
   };
 
   const loadData = () => {
-    if (datosUsuario.length === 0) { // Cambié "<" por "=="
+    if (datosUsuario.length === 0) {
       showToast('warning', 'Necesita identificarse primero');
     } else {
       let config = {
@@ -48,6 +50,7 @@ function ListUser(props) {
           let resp = response.data;
           if (resp.length > 0) {
             console.log(resp);
+            setContent(<GridUser ListadoUsuarios={resp} />);
           } else {
             showToast('warning', 'Sin datos para mostrar');
           }
@@ -61,7 +64,7 @@ function ListUser(props) {
   // Retorno del componente a renderizar con los datos y estructura que deseamos mostrar
   return (
     <div className="Principal-div">
-      {/* Agrega aquí el contenido que deseas mostrar */}
+      {content}
     </div>
   );
 }
