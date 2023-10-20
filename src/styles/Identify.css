@@ -1,0 +1,36 @@
+.principal-div {
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    margin-bottom: 10px;
+    padding: 1rem;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+.identify-box {
+    background-color: rgba(185, 187, 255, 0.288);
+    width: 60%;
+    text-align: center;
+    border-radius: 8px;
+    border: solid rgb(255, 255, 255) 1px;
+    padding: 20px;
+}
+
+label {
+    padding: 5px;    
+    font-weight: bold;
+    font-size: 25px;
+    color: aliceblue;
+    margin-bottom: 20px;
+}
+
+#btnIngreso {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
