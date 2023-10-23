@@ -48,8 +48,7 @@ function ListUser(props) {
         .request(config)
         .then((response) => {
           let resp = response.data;
-          if (resp.length > 0) {
-            console.log(resp);
+          if (resp.length > 0) {            
             setContent(<GridUser ListadoUsuarios={resp} />);
           } else {
             showToast('warning', 'Sin datos para mostrar');
@@ -60,8 +59,7 @@ function ListUser(props) {
         });
     }
   }
-
-  // Retorno del componente a renderizar con los datos y estructura que deseamos mostrar
+  
   return (
     <div className="Principal-div">
       {content}

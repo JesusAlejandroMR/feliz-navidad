@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal'; // Importa la biblioteca 'react-modal'
 import '../styles/GridUser.css';
 import avatar from '../img/batman.png';
+import avatar1 from '../img/test.jpg';
 import Swal from 'sweetalert2';
 
 function GridUser(props) {

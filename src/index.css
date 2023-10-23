@@ -18,4 +18,18 @@ code {
   display: flex;
   flex-direction: column;  
   height: 100%;
+  padding-top: 130px;
+}
+
+@media (max-width: 600px) {
+  .principal-content {    
+    padding-top: 130px;
+  }
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }

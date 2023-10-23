@@ -21,7 +21,9 @@ const handleButtonClick = (cedulaValue) => {
   reactRoot.render(
     <React.StrictMode>
       <div className='principal-content'>
-        <Header usuario={usuario} />
+        <div className='header'>
+          <Header usuario={usuario} />
+        </div>
         {cedula.length > 0 ? (
           <ListUser usuario={usuario} />
         ) : (
@@ -35,7 +37,9 @@ const handleButtonClick = (cedulaValue) => {
 reactRoot.render(
   <React.StrictMode>
     <div className='principal-content'>
-      <Header usuario={cedula} />
+      <div className='header'>
+        <Header usuario={usuario} />
+      </div>
       <Identify onButtonClick={handleButtonClick} />
     </div>
   </React.StrictMode>
