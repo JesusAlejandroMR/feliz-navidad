@@ -71,7 +71,10 @@ function Header(props) {
       )}
       <div className="grid-cat">
         {contextData.length > 0 && contextData.map((dato, index) => (
-          <label className='lblCat' key={index} id={`lbl${index}`} >{dato.Descripcion}</label>
+          <div className='alertaNominacion' key={index}>
+            <label className='lblCat' id={`lbl${index}`}>{dato.Descripcion}</label>
+            {dato.Votos === 1 ? <p>{dato.Usuario}</p> : <p>Sin Asignar</p>}
+          </div>
         ))}
       </div>
     </div>

@@ -40,6 +40,30 @@ function GridUser(props) {
         }
     });
 
+    //Manejo delk checkbox
+    const [checkboxValues, setCheckboxValues] = useState(Array(clavesRepetidas.length).fill(false));
+    const escogerCandidato = (index, clave, selectedUsuario) => {
+        const newCheckboxValues = [...checkboxValues];
+        newCheckboxValues[index] = !newCheckboxValues[index];
+
+        // Aquí verificamos si el valor ha cambiado antes de actualizar el estado
+        if (newCheckboxValues[index] !== checkboxValues[index]) {
+            setCheckboxValues(newCheckboxValues);
+            console.log(`Checkbox marcado para clave: ${clave.Descripcion} y usuario: ${selectedUsuario.Nombre}`);
+            const updatedContextData = contextData.map(item => {
+                if (item.Codigo === clave.Codigo) {
+                    return {
+                        ...item,
+                        Votos: 1,
+                        Usuario: selectedUsuario.Nombre,
+                    };
+                }
+                return item;
+            });
+            setContextData(updatedContextData);
+        }
+    };
+
     return (
         <div className="grid-container">
             <div className="grid">
@@ -66,9 +90,17 @@ function GridUser(props) {
                     <div id='bodyModal'>
                         <p>{selectedUsuario.Nombre}</p>
                         {clavesRepetidas.map((clave, index) =>
-                            <div className='ListCategorias'>
+                            <div className='ListCategorias' key={`div${index}`}>
                                 <p>
-                                    <input key={index} type='checkbox' /> {clave.Descripcion}
+                                    <input
+                                        key={index}
+                                        id={`chb${index}`}
+                                        type='checkbox'
+                                        //checked={checkboxValues[index]}
+                                        onChange={() => escogerCandidato(index, clave, selectedUsuario)}
+                                        value={clave.Descripcion}
+                                    />
+                                    {clave.Descripcion}
                                 </p>
                             </div>)
                         }
