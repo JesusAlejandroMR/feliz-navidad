@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-height: 78vh;
+  max-height: 75vh;
   /* Establece la altura máxima en el 100% de la altura de la ventana */
   overflow-y: auto;
   /* Habilita el scroll solo cuando sea necesario */
@@ -12,6 +12,8 @@
   /* Ancho del scroll */
   scrollbar-color: #112597 #f5f5f5;
   /* Color del scroll */
+
+  text-align: center;
 }
 
 .grid-container::-webkit-scrollbar {
@@ -37,6 +39,8 @@
   gap: 16px;
   margin-top: 20px;
   width: inherit;
+
+  justify-items: center;
 }
 
 @media (max-width: 600px) {
@@ -47,7 +51,7 @@
 
 .grid-item {
   background-color: #f0f0f0;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: center;
@@ -75,4 +79,52 @@
   font-size: 12px;
   font-weight: bold;
   color: rgba(59, 59, 168, 0.829);
+}
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #fff;
+  max-width: 80%;
+  text-align: center;
+  z-index: 1;
+  transition: opacity 0.15s;
+}
+
+.custom-modal.modal-opened {
+  opacity: 1;
+}
+
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: opacity 0.15s;
+}
+
+.custom-overlay.overlay-opened {
+  opacity: 1;
+}
+
+#bodyModal :nth-child(1){
+  font-weight: bold;
+  text-align: center;
+  color: rgb(3, 5, 131);
+  font-size: 18px;
+}
+
+.ListCategorias p{
+  color: #000000 !important;
+  font-size: 12px !important;
 }

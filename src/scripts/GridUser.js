@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal'; // Importa la biblioteca 'react-modal'
+import React, { useState, useContext } from 'react';
+import Modal from 'react-modal';
 import '../styles/GridUser.css';
 import avatar from '../img/batman.png';
-import avatar1 from '../img/test.jpg';
-import Swal from 'sweetalert2';
+import { DataContext } from '../context/dataContext';
+
+Modal.setAppElement('#root');
 
 function GridUser(props) {
     const datos = props.ListadoUsuarios;
@@ -18,8 +19,26 @@ function GridUser(props) {
     };
 
     const closeModal = () => {
+        setSelectedUsuario(null);
         setModalIsOpen(false);
     };
+
+    const modalClass = modalIsOpen ? 'custom-modal modal-opened' : 'custom-modal';
+    const overlayClass = modalIsOpen ? 'custom-overlay overlay-opened' : 'custom-overlay';
+
+    const { contextData, setContextData } = useContext(DataContext);
+
+    let parsedData = [];
+    if (selectedUsuario !== null) {
+        parsedData = JSON.parse(selectedUsuario.Categorias);
+    }
+
+    const clavesRepetidas = [];
+    contextData.forEach(item1 => {
+        if (parsedData.some(item2 => item2.codigo === item1.Codigo)) {
+            clavesRepetidas.push(item1);
+        }
+    });
 
     return (
         <div className="grid-container">
@@ -27,9 +46,9 @@ function GridUser(props) {
                 {datos.length > 0 &&
                     datos.map((usuario, index) => (
                         <div key={index} className="grid-item" onClick={() => openModal(usuario)}>
-                            <img src={avatar} className="avatar" alt={usuario.Nombre}/>
+                            <img src={avatar} className="avatar" alt={usuario.Nombre} />
                             <p>{usuario.Nombre}</p>
-                            <p className='lblLinea'>{usuario.Linea}</p>                            
+                            <p className='lblLinea'>{usuario.Linea}</p>
                         </div>
                     ))}
             </div>
@@ -39,13 +58,20 @@ function GridUser(props) {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 contentLabel="Usuario Modal"
+                className={modalClass}
+                overlayClassName={overlayClass}
             >
-                <center><h2>Categorías disponiles</h2></center>
+                <center><h2>Categorías disponibles</h2></center>
                 {selectedUsuario && (
-                    <div>
-                        <p>Nombre: {selectedUsuario.Nombre}</p>
-                        <p>Línea: {selectedUsuario.Linea}</p>
-                        {/*insertar las categor'ias ac'a*/}
+                    <div id='bodyModal'>
+                        <p>{selectedUsuario.Nombre}</p>
+                        {clavesRepetidas.map((clave, index) =>
+                            <div className='ListCategorias'>
+                                <p>
+                                    <input key={index} type='checkbox' /> {clave.Descripcion}
+                                </p>
+                            </div>)
+                        }
                     </div>
                 )}
                 <button onClick={closeModal}>Cerrar</button>

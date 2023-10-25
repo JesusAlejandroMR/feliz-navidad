@@ -1,14 +1,13 @@
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import React, { useEffect, useState } from 'react';
-import GridUser from './GridUser'; // Ajusté la ruta al archivo GridUser
+import GridUser from './GridUser';
 import '../styles/ListUser.css';
 
 function ListUser(props) {
   const datosUsuario = props.usuario;
   const [content, setContent] = useState(null);
 
-  // Equivalente a onLoad
+  //Equivalente a onLoad
   useEffect(() => {
     loadData();
   }, []);
@@ -37,19 +36,16 @@ function ListUser(props) {
     if (datosUsuario.length === 0) {
       showToast('warning', 'Necesita identificarse primero');
     } else {
-      let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: `/api/Empleado/EmpleadosVotacion/EMPLEADOS-HABILITADOS-NOMINACION/A`,
-        headers: {},
-      };
-
-      axios
-        .request(config)
+      fetch(`/api/Empleado/EmpleadosVotacion/EMPLEADOS-HABILITADOS-NOMINACION/A`)
         .then((response) => {
-          let resp = response.data;
-          if (resp.length > 0) {            
-            setContent(<GridUser ListadoUsuarios={resp} />);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.length > 0) {
+            setContent(<GridUser ListadoUsuarios={data} />);
           } else {
             showToast('warning', 'Sin datos para mostrar');
           }
@@ -59,7 +55,7 @@ function ListUser(props) {
         });
     }
   }
-  
+
   return (
     <div className="Principal-div">
       {content}

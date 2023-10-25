@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../styles/Header.css';
 import logo from '../img/arbolnavidad.png';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { DataContext } from '../context/dataContext';
 
 function Header(props) {
   const datosUsuario = props.usuario;
-  let mensaje = '';
-  const [seleccionados, setSeleccionados] = useState([]); // Utilizar el estado local
+  const [mensaje, setMensaje] = useState([]);
+  const { contextData, setContextData } = useContext(DataContext);
 
-  // Función reutilizable para mostrar notificaciones tipo "toast"
+
   const showToast = (icon, title, timer = 2000) => {
     const Toast = Swal.mixin({
       toast: true,
@@ -30,18 +30,16 @@ function Header(props) {
   };
 
   const loadCategories = () => {
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: `/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A`,
-      headers: {},
-    };
-    axios
-      .request(config)
+    fetch('/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A')
       .then((response) => {
-        let resp = response.data;
-        if (resp.length > 0) {
-          setSeleccionados(resp);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.length > 0) {
+          setContextData(data);
         } else {
           showToast('warning', 'Sin datos para mostrar');
         }
@@ -51,30 +49,32 @@ function Header(props) {
       });
   }
 
-
-  if (datosUsuario.length > 0) {
-    {/*mensaje =`Bienvenid@ ${datosUsuario[0].NOMBRES}`;*/ }
-    mensaje = `Bienvenido ${datosUsuario[0].NOMBRES}`;
-    loadCategories();
-  } else {
-    {/*mensaje = 'Portal de votaciones';*/ }
-    mensaje = 'Título genérico 1';
-  }
+  useEffect(() => {
+    if (datosUsuario.length > 0) {
+      setMensaje(`Bienvenid@ ${datosUsuario[0].NOMBRES}`);
+      loadCategories();
+    } else {
+      setMensaje('Portal de votaciones');
+    }
+  }, [datosUsuario]);
 
   return (
     <div className="title-div">
-      {/*<img src={logo} className="App-logo" alt="logo" />*/}
-      <label className='principal'>{mensaje}</label>
-      {/*<img src={logo}  className="App-logo" alt="logo" />*/}
-
+      {datosUsuario.length === 0 ? (
+        <div className="flex">
+          <img src={logo} className="App-logo" alt="logo" />
+          <label className='principal'>{mensaje}</label>
+          <img src={logo} className="App-logo" alt="logo" />
+        </div>
+      ) : (
+        <label className='principal'>{mensaje}</label>
+      )}
       <div className="grid-cat">
-        {seleccionados.length > 0 &&
-          seleccionados.map((categorias, index) => (            
-            <label className='lblCat' id={`lbl${index}`}>{categorias.Descripcion}</label>
-          ))}
+        {contextData.length > 0 && contextData.map((dato, index) => (
+          <label className='lblCat' key={index} id={`lbl${index}`} >{dato.Descripcion}</label>
+        ))}
       </div>
     </div>
-
   );
 }
 
