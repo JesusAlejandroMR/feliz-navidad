@@ -26,7 +26,7 @@
 }
 
 .grid-container::-webkit-scrollbar-thumb {
-  background-color: rgb(143, 146, 250);
+  background-color: rgba(0, 4, 122, 0.548);
   /* Color del thumb (barra del scroll) */
   border-radius: 8px;
   /* Borde redondeado del thumb */
