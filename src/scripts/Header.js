@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../styles/Header.css';
 import logo from '../img/arbolnavidad.png';
+import logoEnvio from '../img/enviar.png';
 import Swal from 'sweetalert2';
 import { DataContext } from '../context/dataContext';
 
@@ -49,6 +50,49 @@ function Header(props) {
       });
   }
 
+  const saveToDatabase = () => {
+
+    const transformedData = contextData.map(item => {
+      return {
+        idEmpleado: item.idUsuario,
+        idCategoria: item.Codigo/* Aquí proporciona el valor correcto */,
+        periodo: "3",
+        estado: "A",
+        cedulaUsuarioRegistro: datosUsuario[0].CEDULA,
+        opcion: "Insert",
+      };
+    });
+    console.log(transformedData);
+    if (transformedData.some(item => typeof item.idEmpleado === 'undefined')) {
+      showToast('error', 'Categoría sin escoger');
+      return;
+    }
+
+    fetch('/api/Empleado/RegistrarVotos/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(transformedData), // Envía los datos a guardar en el cuerpo de la solicitud.
+    })
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        showToast('success', 'Datos guardados con éxito');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((error) => {
+        Swal.fire('Error en la solicitud!', error.message, 'error');
+      });
+  }
+
   useEffect(() => {
     if (datosUsuario.length > 0) {
       setMensaje(`Bienvenid@ ${datosUsuario[0].NOMBRES}`);
@@ -67,7 +111,11 @@ function Header(props) {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
       ) : (
-        <label className='principal'>{mensaje}</label>
+        <div>
+          <label className='principal'>{mensaje}</label>
+          {/*<div  onClick={saveToDatabase} className='btn-registro'><img src={logoEnvio} alt="Enviar" className="enviar-button"/> Registrar voto</div>*/}
+          <img src={logoEnvio} alt="Enviar" className="enviar-button" onClick={saveToDatabase} />
+        </div>
       )}
       <div className="grid-cat">
         {contextData.length > 0 && contextData.map((dato, index) => (
@@ -79,6 +127,6 @@ function Header(props) {
       </div>
     </div>
   );
-} 
+}
 
 export default Header;

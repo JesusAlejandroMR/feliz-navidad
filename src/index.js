@@ -21,7 +21,7 @@ const App = () => {
     setUsuario(cedulaValue);
   };
 
-  useEffect(() => {
+  {/*useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
       event.returnValue = '';
@@ -36,6 +36,7 @@ const App = () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
+  */}
 
   return (
     <React.StrictMode>
