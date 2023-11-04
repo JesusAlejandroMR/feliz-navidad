@@ -6,6 +6,7 @@ import './index.css';
 import Header from './scripts/Header';
 import ListUser from './scripts/ListUser';
 import Identify from './scripts/Identify';
+import MessagePage from './scripts/MessagePage';
 import reportWebVitals from './reportWebVitals';
 import { DataContextProvider } from './context/dataContext';
 
@@ -15,6 +16,9 @@ const reactRoot = createRoot(root);
 const App = () => {
   const [cedula, setCedula] = useState('');
   const [usuario, setUsuario] = useState([]);
+
+  console.log(cedula);
+  console.log(usuario);
 
   const handleButtonClick = (cedulaValue) => {
     setCedula(cedulaValue);
@@ -45,11 +49,17 @@ const App = () => {
           <div className='header'>
             <Header usuario={usuario} />
           </div>
+          <div className='body'>
           {cedula.length > 0 ? (
-            <ListUser usuario={usuario} />
+            cedula[0].Estado == true ? (
+              <ListUser usuario={usuario} />
+            ) : (
+              <MessagePage usuario={usuario} />
+            )
           ) : (
             <Identify onButtonClick={handleButtonClick} />
           )}
+          </div>
         </DataContextProvider>
       </div>
     </React.StrictMode>

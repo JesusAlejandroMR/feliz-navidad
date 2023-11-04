@@ -1,0 +1,47 @@
+.error-div {
+    background-color: rgba(185, 187, 255, 0.288);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    height: fit-content;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.vigilante {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.msjError {
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 60px;
+    width: 450px;
+    text-align: center;
+}
+
+/* Media query para pantallas de celular (ancho máximo de 768px) */
+@media (max-width: 800px) {
+    .error-div {
+        width: min-content;
+    }
+
+    .msjError {
+        font-size: 14px;
+        width: 290px;
+    }
+
+    /* También puedes ajustar otros estilos según tus necesidades */
+    .vigilante {
+        max-width: 50%;
+        max-height: 50%;
+    }
+}

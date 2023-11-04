@@ -50,20 +50,20 @@
     display: grid;
 }
 
-.btn-registro{
+.btn-registro {
     background-color: aliceblue;
     border: 2px solid green;
     border-radius: 8px;
 }
 
-.enviar-button{
-        width: 50px;
-        height: 50px;
-        background-color: aliceblue;
-        padding: 3px;
-        border-radius: 8px;
-        border: 2px rgb(0, 2, 70) solid;
-        margin: 10px;
+.enviar-button {
+    width: 50px;
+    height: 50px;
+    background-color: aliceblue;
+    padding: 3px;
+    border-radius: 8px;
+    border: 2px rgb(0, 2, 70) solid;
+    margin: 10px;
 }
 
 @media (max-width: 600px) {

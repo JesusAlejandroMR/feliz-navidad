@@ -10,7 +10,6 @@ function Header(props) {
   const [mensaje, setMensaje] = useState([]);
   const { contextData, setContextData } = useContext(DataContext);
 
-
   const showToast = (icon, title, timer = 2000) => {
     const Toast = Swal.mixin({
       toast: true,
@@ -107,26 +106,37 @@ function Header(props) {
       {datosUsuario.length === 0 ? (
         <div className="flex">
           <img src={logo} className="App-logo" alt="logo" />
-          <label className='principal'>{mensaje}</label>
+          <label className="principal">{mensaje}</label>
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-      ) : (
+      ) : datosUsuario[0] && datosUsuario[0].Estado === true ? (
         <div>
-          <label className='principal'>{mensaje}</label>
-          {/*<div  onClick={saveToDatabase} className='btn-registro'><img src={logoEnvio} alt="Enviar" className="enviar-button"/> Registrar voto</div>*/}
-          <img src={logoEnvio} alt="Enviar" className="enviar-button" onClick={saveToDatabase} />
+          <label className="principal">{mensaje}</label>
+          <img
+            src={logoEnvio}
+            alt="Enviar"
+            className="enviar-button"
+            onClick={saveToDatabase}
+          />
         </div>
-      )}
-      <div className="grid-cat">
-        {contextData.length > 0 && contextData.map((dato, index) => (
-          <div className='alertaNominacion' key={index}>
-            <label className='lblCat' id={`lbl${index}`}>{dato.Descripcion}</label>
-            {dato.Votos === 1 ? <p>{dato.Usuario}</p> : <p>Sin Asignar</p>}
-          </div>
-        ))}
-      </div>
+      ) : null}
+      {datosUsuario[0] && datosUsuario[0].Estado === true ? (
+        <div className="grid-cat">
+          {contextData.length > 0 &&
+            contextData.map((dato, index) => (
+              <div className="alertaNominacion" key={index}>
+                <label className="lblCat" id={`lbl${index}`}>
+                  {dato.Descripcion}
+                </label>
+                {dato.Votos === 1 ? <p>{dato.Usuario}</p> : <p>Sin Asignar</p>}
+              </div>
+            ))}
+        </div>
+      ) : null}
     </div>
   );
+
+
 }
 
 export default Header;
