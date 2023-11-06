@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import Modal from 'react-modal';
 import '../styles/GridUser.css';
-import avatar from '../img/batman.png';
+import avatar from '../img/superman.png';
 import { DataContext } from '../context/dataContext';
 
 Modal.setAppElement('#root');
 
 function GridUser(props) {
     const datos = props.ListadoUsuarios;
+
+    console.log(datos);
 
     // Estado para controlar si el modal está abierto o cerrado
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -72,6 +74,7 @@ function GridUser(props) {
                     datos.map((usuario, index) => (
                         <div key={index} className="grid-item" onClick={() => openModal(usuario)}>
                             <img src={avatar} className="avatar" alt={usuario.Nombre} />
+                            <img src={usuario.urlFoto} className="avatar" />
                             <p>{usuario.Nombre}</p>
                             <p className='lblLinea'>{usuario.Linea}</p>
                         </div>
