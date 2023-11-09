@@ -9,6 +9,7 @@ function Header(props) {
   const datosUsuario = props.usuario;
   const [mensaje, setMensaje] = useState([]);
   const { contextData, setContextData } = useContext(DataContext);
+  const [isSaving, setIsSaving] = useState(false);
 
   const showToast = (icon, title, timer = 2000) => {
     const Toast = Swal.mixin({
@@ -50,6 +51,11 @@ function Header(props) {
   }
 
   const saveToDatabase = () => {
+    if (isSaving) {
+      return;
+    }
+
+    setIsSaving(true);
 
     const transformedData = contextData.map(item => {
       return {
