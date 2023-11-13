@@ -31,7 +31,7 @@ function Header(props) {
   };
 
   const loadCategories = () => {
-    fetch('/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A')
+    fetch('http://192.168.0.31:8006/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -70,10 +70,11 @@ function Header(props) {
     console.log(transformedData);
     if (transformedData.some(item => typeof item.idEmpleado === 'undefined')) {
       showToast('error', 'Categoría sin escoger');
+      setIsSaving(false);
       return;
     }
 
-    fetch('/api/Empleado/RegistrarVotos/', {
+    fetch('http://192.168.0.31:8006/api/Empleado/RegistrarVotos/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

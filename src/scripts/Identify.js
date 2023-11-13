@@ -35,8 +35,15 @@ function Identify({ onButtonClick }) {
     if (cedula === '') {
       showToast('warning', 'Necesita ingresar su cédula');
     } else {
-      fetch(`/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`)
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+        headers: { "Accept": "application/json" },
+      };
+      fetch(`http://192.168.0.31:8006/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`, requestOptions)
+      //fetch(`/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`,{credentials: 'include',})
         .then((response) => {
+          console.log(response);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

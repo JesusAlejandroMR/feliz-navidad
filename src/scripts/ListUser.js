@@ -36,7 +36,7 @@ function ListUser(props) {
     if (datosUsuario.length === 0) {
       showToast('warning', 'Necesita identificarse primero');
     } else {
-      fetch(`/api/Empleado/EmpleadosVotacion/EMPLEADOS-HABILITADOS-NOMINACION/A`)
+      fetch(`http://192.168.0.31:8006/api/Empleado/EmpleadosVotacion/EMPLEADOS-HABILITADOS-NOMINACION/A`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');

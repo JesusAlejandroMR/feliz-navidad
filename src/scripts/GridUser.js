@@ -9,8 +9,6 @@ Modal.setAppElement('#root');
 function GridUser(props) {
     const datos = props.ListadoUsuarios;
 
-    console.log(datos);
-
     // Estado para controlar si el modal está abierto o cerrado
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedUsuario, setSelectedUsuario] = useState(null);
