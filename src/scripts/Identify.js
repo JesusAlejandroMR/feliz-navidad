@@ -40,8 +40,8 @@ function Identify({ onButtonClick }) {
         redirect: 'follow',
         headers: { "Accept": "application/json" },
       };
+      //fetch(`http://localhost:8006/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`, requestOptions)
       fetch(`http://192.168.0.31:8006/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`, requestOptions)
-      //fetch(`/api/Empleado/EmpleadosVotacion/DISPONIBILIDAD-EMPLEADO/${cedula}`,{credentials: 'include',})
         .then((response) => {
           console.log(response);
           if (!response.ok) {

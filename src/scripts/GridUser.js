@@ -71,8 +71,9 @@ function GridUser(props) {
                 {datos.length > 0 &&
                     datos.map((usuario, index) => (
                         <div key={index} className="grid-item" onClick={() => openModal(usuario)}>
-                            {/*<img src={avatar} className="avatar" alt={usuario.Nombre} />*/}
-                            <img src={usuario.urlFoto} className="avatar" />
+                            <div className="avatar-container">
+                                <img src={usuario.urlFoto} className="avatar" alt={usuario.Nombre} />
+                            </div>
                             <p>{usuario.Nombre}</p>
                             <p className='lblLinea'>{usuario.Linea}</p>
                         </div>

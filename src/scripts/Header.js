@@ -32,6 +32,7 @@ function Header(props) {
 
   const loadCategories = () => {
     fetch('http://192.168.0.31:8006/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A')
+    //fetch('http://localhost:8006/api/Empleado/EmpleadosVotacion/CATEGORIAS-NOMINACION/A')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -74,8 +75,9 @@ function Header(props) {
       return;
     }
 
+    //fetch('http://localhost:8006/api/Empleado/RegistrarVotos/', {
     fetch('http://192.168.0.31:8006/api/Empleado/RegistrarVotos/', {
-      method: 'POST',
+    method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
